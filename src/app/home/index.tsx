@@ -8,7 +8,7 @@ function Home() {
 		<div>
 			<Container
 				maxWidth="lg"
-				sx={{ background: '#FFFFFF', minHeight: '100vh' }}
+				sx={{ background: '#FFFFFF', minHeight: 'calc(100vh - 64px)' }}
 			>
 				<Stack direction="row">
 					<Box
