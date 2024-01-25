@@ -1,36 +1,15 @@
-import React from 'react';
-import { Box, Container, Stack } from '@mui/material';
-import MajorKPI from './kpi/major';
-import TodoList from './todo/todo-list';
+import React, { useEffect } from 'react';
+import { Container } from '@mui/material';
+import { toast } from 'react-toastify';
+import { redirect } from 'react-router-dom';
+import { useAuthSession } from '../../state/auth';
 
-function Home() {
-	return (
-		<div>
-			<Container
-				maxWidth="lg"
-				sx={{ background: '#FFFFFF', minHeight: 'calc(100vh - 64px)' }}
-			>
-				<Stack direction="row">
-					<Box
-						sx={{
-							width: 1 / 4,
-						}}
-					>
-						Workspace, KPi 지표
-						<MajorKPI />
-					</Box>
-					<Box
-						sx={{
-							width: 3 / 4,
-						}}
-					>
-						TODO List
-						<TodoList />
-					</Box>
-				</Stack>
-			</Container>
-		</div>
-	);
+export default function LandingHome() {
+	const { session } = useAuthSession();
+	useEffect(() => {
+		if (session) {
+			redirect('/workspace');
+		}
+	}, [session]);
+	return <Container maxWidth="md">{process.env.PUBLIC_URL}</Container>;
 }
-
-export default Home;

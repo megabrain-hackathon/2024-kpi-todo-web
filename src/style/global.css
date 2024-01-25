@@ -8,8 +8,8 @@ html {
     }
 }
 
-a:hover {
-    text-decoration: underline;
+a, a:hover {
+    text-decoration: none;
     color: #2064e8
 }
 

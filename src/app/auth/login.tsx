@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { Session } from '@supabase/supabase-js';
+import Button from '@mui/material/Button';
 import { supabase } from '../../auth/supabase';
 import { useAuthSession } from '../../state/auth';
 
@@ -12,8 +12,8 @@ function Login() {
 		return (
 			<div
 				style={{
-					width: '100vw',
-					height: '100vh',
+					width: '100%',
+					height: 'calc(100vh - 64px)',
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
@@ -32,13 +32,13 @@ function Login() {
 	return (
 		<div>
 			<div>Logged in!</div>
-			<button
+			<Button
 				onClick={() =>
 					supabase.auth.signOut().then(() => setSession(undefined))
 				}
 			>
 				Sign out
-			</button>
+			</Button>
 		</div>
 	);
 }
