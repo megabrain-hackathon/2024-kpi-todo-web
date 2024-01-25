@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Dialog, DialogContent, Grid } from '@mui/material';
 import { Add, PlusOne } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { Link, redirect } from 'react-router-dom';
@@ -7,14 +7,17 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useWorkspace } from '../../../state/workspace';
 import { useAuthSession } from '../../../state/auth';
 import { supabase } from '../../../auth/supabase';
 import { WorkspaceType } from '../../../type/workspace';
+import NewWorkspaceDialogContent from '../new';
 
 export default function WorkspaceList() {
 	const { workspaces, setWorkspaces } = useWorkspace();
 	const { session } = useAuthSession();
+	const [openNewWorkspace, setOpenNewWorkspace] = useState(false);
 
 	const callWorkspaces = async () => {
 		if (!session) return;
@@ -89,7 +92,7 @@ export default function WorkspaceList() {
 					);
 				})}
 				<Grid item xs={12} md={6} lg={4}>
-					<Link to="/workspace/new" key="new">
+					<Button onClick={() => setOpenNewWorkspace(true)}>
 						<Card>
 							<CardContent>
 								<Typography variant="body2">
@@ -97,9 +100,20 @@ export default function WorkspaceList() {
 								</Typography>
 							</CardContent>
 						</Card>
-					</Link>
+					</Button>
 				</Grid>
 			</Grid>
+			<Dialog
+				open={openNewWorkspace}
+				onClose={() => setOpenNewWorkspace(false)}
+				PaperProps={{ style: { width: '700px' } }}
+			>
+				<DialogContent>
+					<NewWorkspaceDialogContent
+						onClose={() => setOpenNewWorkspace(false)}
+					/>
+				</DialogContent>
+			</Dialog>
 		</>
 	);
 }
